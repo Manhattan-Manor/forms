@@ -1,0 +1,20 @@
+{
+    "name": "axellr992/manhattan-manor-forms",
+    "description": "A set of PHP headless forms to use in the Manhatta Manor's Websites",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^6.8",
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Axellr992\\ManhattanManorForms\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Axel León",
+            "email": "yka992@hotmail.com"
+        }
+    ]
+}
