@@ -1,6 +1,9 @@
 <?php
 require '../vendor/autoload.php';
 
+// Allow cors requests
+header("Access-Control-Allow-Origin: *");
+
 use PHPMailer\PHPMailer\PHPMailer;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -113,9 +116,9 @@ try {
     // * Mail to user
     $html_template_path = "";
     if ($language === "en") {
-        $html_template_path = "./cp/email_templates/autorresponder.html";
+        $html_template_path = "./email_templates/autorresponder.html";
     } else {
-        $html_template_path = "./cp/email_templates/autorresponder_es.html";
+        $html_template_path = "./email_templates/autorresponder_es.html";
     }
     $html_template = fopen($html_template_path, "r") or die("Unable to open html template for autorresponder");
     $html_content = fread($html_template, filesize($html_template_path));
