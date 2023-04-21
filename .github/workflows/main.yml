@@ -37,4 +37,4 @@ jobs:
           remote-user: dh_y3sar9
           private-ssh-key: ${{ secrets.PRIVATE_KEY }}
           destination-path: ~/cms.manhattanmanor.com/forms/
-          rsync-options: --dry-run --archive --verbose --compress --delete-after --human-readable --exclude=.git* --exclude=.git/ --exclude=README.md --exclude=readme.md --exclude=.gitignore
+          rsync-options: --exclude=.git* --exclude=.git/ --exclude=README.md --exclude=readme.md --exclude=.gitignore
