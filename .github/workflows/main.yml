@@ -20,6 +20,8 @@ jobs:
           fail_on_empty: true
       - name: Install dependencies
         uses: php-actions/composer@v6
+      - name: ls
+        run: ls -la
       - name: 📂 Sync Files
         uses: SamKirkland/web-deploy@v1
         with:
@@ -27,4 +29,3 @@ jobs:
           remote-user: dh_y3sar9
           private-ssh-key: ${{ secrets.PRIVATE_KEY }}
           destination-path: ~/cms.manhattanmanor.com/forms/
-          rsync-options: --exclude=.git* --exclude=.git/ --exclude=README.md --exclude=readme.md --exclude=.gitignore
