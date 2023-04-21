@@ -14,15 +14,17 @@ jobs:
           envkey_EMAILS_FROM_PASSWORD: ${{ secrets.EMAILS_FROM_PASSWORD }}
           envkey_G_RECAPTCHA_SECRET: ${{ secrets.G_RECAPTCHA_SECRET }}
           envkey_TEST: This_helps_me_to_check_if_ghaction_worked
-          directory: src/
+          directory: src
           fail_on_empty: true
   build:
+    needs: create-env
     name: Install dependencies
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: php-actions/composer@v6
   web-deploy:
+    needs: build
     name: 🚀 Deploy Website Every Commit
     runs-on: ubuntu-latest
     steps:
