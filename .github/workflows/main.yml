@@ -1,11 +1,12 @@
 on: push
 name: 🚀 Deploy forms on push
 jobs:
-  create-env:
-    name: Create env file
+  build-and-deploy:
+    name: Build and deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1.3
         with:
@@ -17,19 +18,8 @@ jobs:
           envkey_TEST: This_helps_me_to_check_if_ghaction_worked
           directory: src
           fail_on_empty: true
-  build:
-    needs: create-env
-    name: Install dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: php-actions/composer@v6
-  web-deploy:
-    needs: build
-    name: 🚀 Deploy Website Every Commit
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+      - name: Install dependencies
+        uses: php-actions/composer@v6
       - name: 📂 Sync Files
         uses: SamKirkland/web-deploy@v1
         with:
