@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.3
+        uses: SpicyPizza/create-envfile@master
         with:
           envkey_EMAILS_TO: ${{ secrets.EMAILS_TO }}
           envkey_EMAILS_CC: ${{ secrets.EMAILS_CC }}
