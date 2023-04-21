@@ -35,6 +35,6 @@ jobs:
         with:
           target-server: james-wilson.dreamhost.com
           remote-user: dh_y3sar9
-          private-ssh-key: ${{ secrets.SSH_KEY }}
+          private-ssh-key: ${{ secrets.PRIVATE_KEY }}
           destination-path: ~/cms.manhattanmanor.com/forms/
           rsync-options: --dry-run --archive --verbose --compress --delete-after --human-readable --exclude=.git* --exclude=.git/ --exclude=README.md --exclude=readme.md --exclude=.gitignore
