@@ -5,20 +5,21 @@ jobs:
     name: Create env file
     runs-on: ubuntu-latest
     steps:
+      - name: PWD
+        run: pwd
+      - name: ls
+        run: ls -la
       - name: Make envfile
-        run: |
-          touch src/.env
-              echo EMAILS_TO=${{ secrets.EMAILS_TO }} >> src/.env
-        # uses: SpicyPizza/create-envfile@v1.3
-        # with:
-        #   envkey_EMAILS_TO: ${{ secrets.EMAILS_TO }}
-        #   envkey_EMAILS_CC: ${{ secrets.EMAILS_CC }}
-        #   envkey_EMAILS_FROM: ${{ secrets.EMAILS_FROM }}
-        #   envkey_EMAILS_FROM_PASSWORD: ${{ secrets.EMAILS_FROM_PASSWORD }}
-        #   envkey_G_RECAPTCHA_SECRET: ${{ secrets.G_RECAPTCHA_SECRET }}
-        #   envkey_TEST: This_helps_me_to_check_if_ghaction_worked
-        #   directory: src
-        #   fail_on_empty: true
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_EMAILS_TO: ${{ secrets.EMAILS_TO }}
+          envkey_EMAILS_CC: ${{ secrets.EMAILS_CC }}
+          envkey_EMAILS_FROM: ${{ secrets.EMAILS_FROM }}
+          envkey_EMAILS_FROM_PASSWORD: ${{ secrets.EMAILS_FROM_PASSWORD }}
+          envkey_G_RECAPTCHA_SECRET: ${{ secrets.G_RECAPTCHA_SECRET }}
+          envkey_TEST: This_helps_me_to_check_if_ghaction_worked
+          directory: src
+          fail_on_empty: true
   build:
     needs: create-env
     name: Install dependencies
