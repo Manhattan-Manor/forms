@@ -104,7 +104,7 @@ try {
 
     $mail->setFrom($email_from, 'Manhattan Manor');
     $mail->addAddress($email_to);
-    
+
     $mail->addAddress($_ENV["EMAILS_CC"]);
     $mail->addReplyTo($email_replyto);
 
@@ -144,6 +144,63 @@ try {
 
     $mail->send();
     $user_mail->send();
+
+    # Save data to CSV file
+    # It must create a folder called "data" in the root of the project if it doesn't exist
+    # Inside the folder, it must create a file called "reservation-requests.csv" if it doesn't exist
+    # If the file is new, it must add the headers
+    # Include date, time, IP, request domain and all the data from the form
+    # Prevent SQL injection, XSS and scape characters like quotes and commas
+    $data = array(
+        'date' => date("Y-m-d"),
+        'time' => date("H:i:s"),
+        'ip' => $_SERVER['REMOTE_ADDR'],
+        'domain' => $_SERVER['HTTP_HOST'],
+        'firstname' => $firstname,
+        'lastname' => $lastname,
+        'company' => $company,
+        'email' => $email_replyto,
+        'phone' => $phone,
+        'eventdate' => $eventdate,
+        'eventtime' => $eventtime,
+        'guests' => $guests,
+        'eventtype' => $eventtype,
+        'notes' => $notes,
+        'subscribe' => $subscribe,
+    );
+    $data = array_map(function ($value) {
+        return '"' . str_replace('"', '""', $value) . '"';
+    }, $data);
+    $data = implode(",", $data) . "\n";
+    $data_header = array(
+        'date',
+        'time',
+        'ip',
+        'domain',
+        'firstname',
+        'lastname',
+        'company',
+        'email',
+        'phone',
+        'eventdate',
+        'eventtime',
+        'guests',
+        'eventtype',
+        'notes',
+        'subscribe',
+    );
+    $file = fopen("./data/reservation-requests.csv", "a") or die("Unable to open file!");
+    if (filesize("./data/reservation-requests.csv") == 0) {
+        $data_header = array_map(function ($value) {
+            return '"' . str_replace('"', '""', $value) . '"';
+        }, $data_header);
+        $data_header = implode(",", $data_header) . "\n";
+        fwrite($file, $data_header);
+    }
+    fwrite($file, $data);
+    fclose($file);
+    
+    # END Save data to CSV file
 
     http_response_code(200);
     header('Content-Type: application/json');
