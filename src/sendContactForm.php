@@ -138,13 +138,13 @@ try {
     # Save data to CSV file
 
     # Create data folder if it doesn't exist
-    if (!file_exists("./data")) {
-        mkdir("./data");
+    if (!file_exists("../../form-submissions-data")) {
+        mkdir("../../form-submissions-data");
     }
 
-    $data_file = fopen("./data/contact-form.csv", "a") or die("Unable to open data file");
+    $data_file = fopen("../../form-submissions-data/contact-form.csv", "a") or die("Unable to open data file");
     $data_headers = array("date", "time", "ip", "domain", "name", "email", "phone", "subscribe", "livechat");
-    if (filesize("./data/contact-form.csv") == 0) {
+    if (filesize("../../form-submissions-data/contact-form.csv") == 0) {
         fputcsv($data_file, $data_headers);
     }
     $data_row = array(

@@ -186,12 +186,12 @@ try {
     );
 
     # Create data folder if it doesn't exist
-    if (!file_exists("./data")) {
-        mkdir("./data");
+    if (!file_exists("../../form-submissions-data")) {
+        mkdir("../../form-submissions-data");
     }
 
-    $file = fopen("./data/reservation-requests.csv", "a") or die("Unable to open file!");
-    if (filesize("./data/reservation-requests.csv") == 0) {
+    $file = fopen("../../form-submissions-data/reservation-requests.csv", "a") or die("Unable to open file!");
+    if (filesize("../../form-submissions-data/reservation-requests.csv") == 0) {
         $data_header = array_map(function ($value) {
             return '"' . str_replace('"', '""', $value) . '"';
         }, $data_header);
