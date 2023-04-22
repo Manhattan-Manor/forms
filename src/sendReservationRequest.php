@@ -146,11 +146,6 @@ try {
     $user_mail->send();
 
     # Save data to CSV file
-    # It must create a folder called "data" in the root of the project if it doesn't exist
-    # Inside the folder, it must create a file called "reservation-requests.csv" if it doesn't exist
-    # If the file is new, it must add the headers
-    # Include date, time, IP, request domain and all the data from the form
-    # Prevent SQL injection, XSS and scape characters like quotes and commas
     $data = array(
         'date' => date("Y-m-d"),
         'time' => date("H:i:s"),
@@ -189,6 +184,12 @@ try {
         'notes',
         'subscribe',
     );
+
+    # Create data folder if it doesn't exist
+    if (!file_exists("./data")) {
+        mkdir("./data");
+    }
+
     $file = fopen("./data/reservation-requests.csv", "a") or die("Unable to open file!");
     if (filesize("./data/reservation-requests.csv") == 0) {
         $data_header = array_map(function ($value) {
