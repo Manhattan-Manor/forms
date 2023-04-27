@@ -1,7 +1,7 @@
 <?php
 function died($error)
 {
-    http_response_code(500);
+    http_response_code(400);
     header('Content-Type: application/json');
     $response = array(
         'error' => true,
