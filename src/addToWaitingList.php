@@ -1,9 +1,17 @@
 <?php
+require("./functions/isValidRecaptcha.php");
+require("./functions/died.php");
+
 // Allow cors requests
 header("Access-Control-Allow-Origin: *");
 
 $json = file_get_contents('php://input');
 $data = json_decode($json);
+
+$isValidRecaptcha = isValidRecaptcha($data["g_captcha"]);
+if (!$isValidRecaptcha) {
+    died("Invalid recaptcha");
+}
 
 $email = htmlspecialchars($data->email) . "\r";
 
