@@ -1,6 +1,4 @@
 <?php
-require("./functions/died.php");
-
 function isValidRecaptcha(string $client_response)
 {
     $url = 'https://www.google.com/recaptcha/api/siteverify';

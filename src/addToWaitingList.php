@@ -8,7 +8,7 @@ header("Access-Control-Allow-Origin: *");
 $json = file_get_contents('php://input');
 $data = json_decode($json);
 
-$isValidRecaptcha = isValidRecaptcha($data["g_captcha"]);
+$isValidRecaptcha = isValidRecaptcha($data->g_captcha);
 if (!$isValidRecaptcha) {
     died("Invalid recaptcha");
 }
