@@ -1,19 +1,23 @@
 <?php
 require("./functions/isValidRecaptcha.php");
 require("./functions/died.php");
+require '../vendor/autoload.php';
 
 // Allow cors requests
 header("Access-Control-Allow-Origin: *");
 
-$json = file_get_contents('php://input');
-$data = json_decode($json);
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-$isValidRecaptcha = isValidRecaptcha($data->g_captcha);
+$data = json_decode(file_get_contents('php://input'), true);
+$captcha = $data["g_captcha"];
+
+$isValidRecaptcha = isValidRecaptcha($captcha);
 if (!$isValidRecaptcha) {
     died("Invalid recaptcha");
 }
 
-$email = htmlspecialchars($data->email) . "\r";
+$email = htmlspecialchars($data["email"]) . "\r";
 
 # Create data folder if it doesn't exist
 if (!file_exists("../../form-submissions-data")) {

@@ -1,6 +1,5 @@
 <?php
 require '../vendor/autoload.php';
-//Test comment
 
 // Allow cors requests
 header("Access-Control-Allow-Origin: *");
