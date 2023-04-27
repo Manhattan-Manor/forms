@@ -22,3 +22,11 @@ if (is_file($file)) {
     fwrite($csv, $email);
     fclose($csv);
 }
+
+http_response_code(200);
+header('Content-Type: application/json');
+$response = array(
+    'error' => false,
+    'message' => 'Added to waiting list successfully',
+);
+echo json_encode($response);
