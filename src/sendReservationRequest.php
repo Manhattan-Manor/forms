@@ -105,7 +105,8 @@ try {
     $mail->setFrom($email_from, 'Manhattan Manor');
     $mail->addAddress($email_to);
 
-    $mail->addAddress($_ENV["EMAILS_CC"]);
+    if (isset($_ENV["EMAILS_CC"]) && trim($_ENV["EMAILS_CC"]) != "")
+        $mail->addAddress($_ENV["EMAILS_CC"]);
     $mail->addReplyTo($email_replyto);
 
     $mail->isHTML(true);
@@ -200,7 +201,7 @@ try {
     }
     fwrite($file, $data);
     fclose($file);
-    
+
     # END Save data to CSV file
 
     http_response_code(200);
