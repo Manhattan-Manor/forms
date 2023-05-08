@@ -16,8 +16,13 @@ $isValidRecaptcha = isValidRecaptcha($captcha);
 if (!$isValidRecaptcha) {
     died("Invalid recaptcha");
 }
+if (!isset($data["email"]) || !isset($data["name"]) || !isset($data["lastname"])) {
+    died("Missing required fields");
+}
 
-$email = htmlspecialchars($data["email"]) . "\r";
+$email = htmlspecialchars($data["email"]);
+$name = htmlspecialchars($data["name"]);
+$lastname = htmlspecialchars($data["lastname"]);
 
 # Create data folder if it doesn't exist
 if (!file_exists("../../form-submissions-data")) {
