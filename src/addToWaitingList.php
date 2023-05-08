@@ -23,6 +23,7 @@ if (!isset($data["email"]) || !isset($data["name"]) || !isset($data["lastname"])
 $email = htmlspecialchars($data["email"]);
 $name = htmlspecialchars($data["name"]);
 $lastname = htmlspecialchars($data["lastname"]);
+$content = $email . "," . $name . "," . $lastname . "\r";
 
 # Create data folder if it doesn't exist
 if (!file_exists("../../form-submissions-data")) {
@@ -32,11 +33,12 @@ if (!file_exists("../../form-submissions-data")) {
 # Save user information to CSV
 $file = "../../form-submissions-data/nye-waiting-list.csv";
 if (is_file($file)) {
-    file_put_contents($file, $email, FILE_APPEND);
+    file_put_contents($file, $content, FILE_APPEND);
 } else {
+    $headers = "Email,Name,Lastname\r";
     $csv = fopen($file, "w") or die("Unable to create CSV!");
-    fwrite($csv, "Waiting list emails\r");
-    fwrite($csv, $email);
+    fwrite($csv, $headers);
+    fwrite($csv, $content);
     fclose($csv);
 }
 
